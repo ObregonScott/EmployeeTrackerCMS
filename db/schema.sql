@@ -1,19 +1,24 @@
-CREATE TABLE department(
-  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  dep_name VARCHAR(30)
+DROP DATABASE IF EXISTS department;
+DROP DATABASE IF EXISTS role;
+DROP DATABASE IF EXISTS employee;
+
+CREATE TABLE department (
+  id INTEGER AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE employee_role(
-  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  title VARCHAR(30),
+CREATE TABLE role (
+  id INTEGER AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(30) NOT NULL,
   salary DECIMAL,
-  department_id INT
+  department_id INTEGER
+  
 );
 
-CREATE TABLE employee(
-  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  first_name VARCHAR(30),
-  last_name VARCHAR (30),
-  role_id INT,
-  manager_id INT
+CREATE TABLE employee (
+  id INTEGER AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(30) NOT NULL,
+  last_name VARCHAR(30) NOT NULL,
+  role_id INTEGER,
+  manager_id INTEGER
 );
