@@ -38,3 +38,39 @@ const serveQuest = () => {
           }
     });
 };
+
+// What to do with questions after questions
+    //view all Depts first
+    const viewAllDepartments = () => {
+
+    };
+
+    //next view Roles
+    const viewAllRoles = () => {
+
+    };
+
+    //next view Employees
+    const viewAllEmployees = () => {
+
+    };
+
+    //next add Department
+    const addDepartment = () => {
+
+    };
+
+    //next add Role
+    const addRole = ()  => {
+
+    };
+
+    //next add Employee
+    const addEmployee = () => {
+
+    };
+
+    //next Update Role
+    const updateRole = () => {
+
+    };
