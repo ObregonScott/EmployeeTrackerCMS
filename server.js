@@ -1,5 +1,5 @@
 // Imports & Dependencies
-const consoleTable = require('console.table');
+const cTable = require('console.table');
 const inquirer = require('inquirer');
 
 // List Questions Here
@@ -74,3 +74,5 @@ const serveQuest = () => {
     const updateRole = () => {
 
     };
+
+    serveQuest();
