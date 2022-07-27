@@ -1,6 +1,12 @@
 // Imports & Dependencies
 const cTable = require('console.table');
 const inquirer = require('inquirer');
+const db = require("./db/connection");
+
+//Err
+db.connect((err) => {
+  if (err) throw err;
+});
 
 // List Questions Here
 const serveQuest = () => {
@@ -191,7 +197,7 @@ const addEmployee = () => {
                     if (employeeFirstNameInput) {
                         return true;
                     } else {
-                        console.log("Please enter new employee first name");
+                        console.log("Enter new employee first name");
                         return false;
                     }
                 },
@@ -204,7 +210,7 @@ const addEmployee = () => {
                     if (employeeLastNameInput) {
                         return true;
                     } else {
-                        console.log("Please enter new employee last name");
+                        console.log("Enter new employee last name");
                         return false;
                     }
                 },
@@ -215,7 +221,7 @@ const addEmployee = () => {
                 message: "Enter role id of new employee (Required)",
                 validate: (employeeRoleInput) => {
                     if (isNaN(employeeRoleInput)) {
-                        console.log("Please enter a number for the new employee role id");
+                        console.log("Enter a number for the new employee role id");
                         return false;
                     } else {
                         return true;
@@ -229,7 +235,7 @@ const addEmployee = () => {
                 validate: (employeeManagerInput) => {
                     if (isNaN(employeeManagerInput)) {
                         console.log(
-                            "Please enter a number for the new employee manager id"
+                            "Enter a number for the new employee manager id"
                         );
                         return false;
                     } else {
@@ -269,7 +275,7 @@ const updateRole = () => {
                 message: "Enter id of employee you want to update (Required)",
                 validate: (employeeUpdateInput) => {
                     if (isNaN(employeeUpdateInput)) {
-                        console.log("Please enter a number for the employee id");
+                        console.log("Enter a number for the employee ID");
                         return false;
                     } else {
                         return true;
@@ -279,10 +285,10 @@ const updateRole = () => {
             {
                 type: "input",
                 name: "update_employee_role",
-                message: "Enter new role id (Required)",
+                message: "Enter new role ID(Required)",
                 validate: (newRoleInput) => {
                     if (isNaN(newRoleInput)) {
-                        console.log("Please enter a number for the new role id");
+                        console.log("Enter a number for the new role ID");
                         return false;
                     } else {
                         return true;
