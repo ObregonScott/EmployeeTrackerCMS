@@ -1,4 +1,4 @@
-require("console.table");
+const cTable = require("console.table");
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 // const db = require("./db"); 
@@ -281,7 +281,7 @@ function addEmployee() {
 
 //next Update Role
 // const updateRole = () => {
-    function updateRole() {
+function updateRole() {
     inquirer
         .prompt([
             {
