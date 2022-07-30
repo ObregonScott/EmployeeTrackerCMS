@@ -1,6 +1,7 @@
-import cTable from "console.table";
-import mysql from "mysql";
-import inquirer from "inquirer";
+require("console.table");
+const mysql = require("mysql");
+const inquirer = require("inquirer");
+// const db = require("./db"); 
 
 
 const db = mysql.createConnection({

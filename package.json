@@ -2,10 +2,9 @@
   "name": "employeetrackercms",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "jest",
     "start": "node server.js"
   },
   "repository": {
@@ -21,15 +20,7 @@
   "homepage": "https://github.com/ObregonScott/EmployeeTrackerCMS#readme",
   "dependencies": {
     "console.table": "^0.10.0",
-    "cross-fetch": "^3.1.5",
-    "dotenv": "^16.0.1",
-    "express": "^4.18.1",
     "inquirer": "^9.0.2",
-    "mysql": "^2.18.1",
-    "mysql2": "^2.3.3",
-    "nodemon": "^2.0.19"
-  },
-  "devDependencies": {
-    "jest": "^28.1.3"
+    "mysql2": "^2.3.3"
   }
 }
