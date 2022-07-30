@@ -11,6 +11,7 @@ const db = mysql.createConnection({
     password: 'password',
     database: 'team'
 });
+
 //Err
 db.connect((err) => {
     if (err) throw err;
