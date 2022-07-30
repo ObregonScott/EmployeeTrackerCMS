@@ -19,7 +19,8 @@ db.connect((err) => {
 });
 
 // List Questions Here
-const serveQuest = () => {
+// const serveQuest = () => {
+function serveQuest() {
     inquirer
         .prompt({
             type: "list",
@@ -98,7 +99,8 @@ const viewAllEmployees = () => {
 };
 
 //next add Department
-const addDepartment = () => {
+// const addDepartment = () => {
+function addDepartment() {
     inquirer
         .prompt([
             {
@@ -132,7 +134,8 @@ const addDepartment = () => {
 };
 
 //next add Role
-const addRole = () => {
+// const addRole = () => {
+function addRole() {
     inquirer
         .prompt([
             {
@@ -196,7 +199,8 @@ const addRole = () => {
 };
 
 //next add Employee
-const addEmployee = () => {
+// const addEmployee = () => {
+function addEmployee() {
     inquirer
         .prompt([
             {
@@ -276,7 +280,8 @@ const addEmployee = () => {
 };
 
 //next Update Role
-const updateRole = () => {
+// const updateRole = () => {
+    function updateRole() {
     inquirer
         .prompt([
             {
