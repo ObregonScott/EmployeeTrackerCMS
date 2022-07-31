@@ -5,9 +5,7 @@ import inquirer from "inquirer";
 
 const db = mysql.createConnection({
     host: 'localhost',
-    // Your MySQL username,
     user: 'root',
-    // Your My SQL password: '',
     password: 'password',
     database: 'team'
 });
