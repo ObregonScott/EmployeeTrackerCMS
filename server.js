@@ -1,12 +1,11 @@
 require("console.table");
 // const mysql = require("mysql2");
-const inquirer = require("inquirer");
+const { prompt } = require("inquirer");
 const db = require("./db");
 
 // List Questions Here
 function serveQuest() {
-    inquirer
-        .prompt({
+   prompt({
             type: "list",
             name: "choice",
             message: "What would you like to do?",
