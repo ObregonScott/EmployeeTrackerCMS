@@ -14,6 +14,14 @@ class DB {
         );
     }
 
+    // Find All Departments
+
+    findDepartments() {
+        return this.connection.promise().query(
+            "SELECT department.id, department.name FROM department;"
+        );
+    }
+
     // Find Managers
 
     findAllPossibleManagers(employeeId) {
@@ -31,7 +39,7 @@ class DB {
 
     //Remove Employee
 
-    removeEmployee(employeeId) {
+    deleteEmployee(employeeId) {
         return this.connection.promise().query(
             "DELETE FROM employee WHERE id = ?",
             employeeId
@@ -58,7 +66,7 @@ class DB {
 
     // Find All Roles
 
-    findAllRoles() {
+    findRoles() {
         return this.connection.promise().query(
             "SELECT role.id, role.title, department.name AS department, role.salary FROM role LEFT JOIN department on role.department_id = department.id;"
         );
@@ -74,14 +82,6 @@ class DB {
 
     removeRole(roleId) {
         return this.connection.promise().query("DELETE FROM role WHERE id = ?", roleId);
-    }
-
-    // Find All Departments
-
-    findAllDepartments() {
-        return this.connection.promise().query(
-            "SELECT department.id, department.name FROM department;"
-        );
     }
 
     // View Departments Budget
@@ -100,7 +100,7 @@ class DB {
 
     //Delete Department
 
-    removeDepartment(departmentId) {
+    deleteDepartment(departmentId) {
         return this.connection.promise().query(
             "DELETE FROM department WHERE id = ?",
             departmentId
@@ -111,19 +111,19 @@ class DB {
 
     findAllEmployeesByDepartment(departmentId) {
         return this.connection.promise().query(
-          "SELECT employee.id, employee.first_name, employee.last_name, role.title FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department department on role.department_id = department.id WHERE department.id = ?;",
-          departmentId
+            "SELECT employee.id, employee.first_name, employee.last_name, role.title FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department department on role.department_id = department.id WHERE department.id = ?;",
+            departmentId
         );
-      }
-
-      //Find Employees By Manager
-
-      findAllEmployeesByManager(managerId) {
-        return this.connection.promise().query(
-          "SELECT employee.id, employee.first_name, employee.last_name, department.name AS department, role.title FROM employee LEFT JOIN role on role.id = employee.role_id LEFT JOIN department ON department.id = role.department_id WHERE manager_id = ?;",
-          managerId
-        );
-      }
     }
 
-    module.exports = new DB(connect)
+    //Find Employees By Manager
+
+    findAllEmployeesByManager(managerId) {
+        return this.connection.promise().query(
+            "SELECT employee.id, employee.first_name, employee.last_name, department.name AS department, role.title FROM employee LEFT JOIN role on role.id = employee.role_id LEFT JOIN department ON department.id = role.department_id WHERE manager_id = ?;",
+            managerId
+        );
+    }
+}
+
+module.exports = new DB(connect)
