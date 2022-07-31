@@ -1,7 +1,8 @@
-const cTable = require("console.table");
-const mysql = require("mysql");
+// const cTable = require("console.table");
+const mysql = require("mysql2");
 const inquirer = require("inquirer");
 const db = require("./db"); 
+const { removeEmployee, removeRole, removeDepartment, viewDepartmentBudgets } = require("./db");
 
 
 
@@ -15,36 +16,91 @@ function serveQuest() {
             name: "choice",
             message: "What would you like to do?",
             choices: [
-                "View All Departments",
-                "View All Roles",
                 "View All Employees",
-                "Add A Department",
-                "Add A Role",
-                "Add An Employee",
-                "Update A Employee Role"
+                "View Employees By Department",
+                "View Employees By Manager",
+                "Add Employee",
+                "Remove Employee",
+                "Update Employee Role",
+                "Update Employee Manager",
+                "View All Roles",
+                "Add Role",
+                "Remove Role",
+                "View All Departments",
+                "Add Department",
+                "Remove Department",
+                "View Budget By Department",
+                "Quit"
             ]
         })
         // Sort Answers
         .then((answer) => {
-            if (answer.options === "View All Departments") {
-                viewAllDepartments();
+            if (answer.options === "View All Employees") {
+                viewAllEmployees();
+            } else if (answer.choice === "View Employees By Department") {
+                viewEmployeesByDepartment();
+            } else if (answer.choice === "View Employees By Manager") {
+                viewEmployeesByManager();
+            } else if (answer.choice === "Add Employee") {
+                addEmployee();
+            } else if (answer.choice === "Remove Employee") {
+                removeEmployee();
+            } else if (answer.choice === "Update Employee Role") {
+                updateRole();
+            } else if (answer.choice === "Update Employee Manager") {
+                updateManager();
             } else if (answer.choice === "View All Roles") {
                 viewAllRoles();
-            } else if (answer.choice === "View All Employees") {
-                viewAllEmployees();
-            } else if (answer.choice === "Add A Department") {
-                addDepartment();
-            } else if (answer.choice === "Add A Role") {
+            } else if (answer.choice === "Add Role") {
                 addRole();
-            } else if (answer.choice === "Add An Employee") {
-                addEmployee();
-            } else if (answer.choice === "Update A EmployeeRole") {
-                updateRole();
+            } else if (answer.choice === "Remove Role") {
+                removeRole();
+            } else if (answer.choice === "View All Departments") {
+                viewAllDepartments();
+            } else if (answer.choice === "Add Department") {
+                addDepartment();
+            } else if (answer.choice === "Remove Department") {
+                removeDepartment();
+            } else if (answer.choice === "View Budget By Department") {
+                viewDepartmentBudgets();
+            } else if (answer.choice === "Quit") {
+                quit();
             }
         });
 };
 
 // What to do with questions after questions
+
+// View Employees
+
+const viewAllEmployees = () => {
+    const sql = `SELECT employee.*, role.title, role.salary, department.name AS department_name FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id`;
+
+    db.query(sql, (err, rows) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        console.table(rows);
+        serveQuest();
+    });
+};
+
+// View Employees By Department
+// View Employees By Manager
+// Add Employee
+// Remove Employee
+// Update Employee Role
+// Update Employee Manager
+// View All Roles
+// Add Role
+// Remove Role
+// View All Departments
+// Add Department
+// Remove Department
+// View Budget By Department
+// Quit
+
 //view all Depts first
 const viewAllDepartments = () => {
     const sql = `SELECT * FROM department`;
@@ -72,19 +128,6 @@ const viewAllRoles = () => {
     });
 };
 
-//next view Employees
-const viewAllEmployees = () => {
-    const sql = `SELECT employee.*, role.title, role.salary, department.name AS department_name FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id`;
-
-    db.query(sql, (err, rows) => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        console.table(rows);
-        serveQuest();
-    });
-};
 
 //next add Department
 // const addDepartment = () => {

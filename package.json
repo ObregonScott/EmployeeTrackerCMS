@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "start": "node server.js"
   },
@@ -12,7 +11,7 @@
     "url": "git+https://github.com/ObregonScott/EmployeeTrackerCMS.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Scott Obregon",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ObregonScott/EmployeeTrackerCMS/issues"
@@ -20,7 +19,7 @@
   "homepage": "https://github.com/ObregonScott/EmployeeTrackerCMS#readme",
   "dependencies": {
     "console.table": "^0.10.0",
-    "inquirer": "^9.0.2",
+    "inquirer": "^8.2.4",
     "mysql2": "^2.3.3"
   }
 }
