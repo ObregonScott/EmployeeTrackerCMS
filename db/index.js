@@ -1,4 +1,4 @@
-const connect = require('./connect.js')
+const connection = require('./connect')
 
 class DB {
 
@@ -91,4 +91,4 @@ class DB {
     }
 }
 
-module.exports = new DB(connect)
+module.exports = new DB(connection)

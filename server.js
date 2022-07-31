@@ -1,7 +1,6 @@
 require("console.table");
 // const mysql = require("mysql2");
 const inquirer = require("inquirer");
-const { prompt } = require("inquirer");
 const db = require("./db");
 
 // List Questions Here
@@ -64,6 +63,7 @@ function serveQuest() {
             }
         });
 };
+
 // View Employees
 function viewAllEmployees() {
     db.findEmployees()
@@ -412,7 +412,7 @@ function viewDepartmentBudget() {
 function quit() {
     console.log("See Ya!");
     process.exit();
-  }
+}
 
 serveQuest()
 
