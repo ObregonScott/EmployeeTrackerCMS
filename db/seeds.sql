@@ -1,13 +1,15 @@
 use employees;
 
-INSERT INTO department (name)
+INSERT INTO department
+(name)
 VALUES
-(1, 'Operations'), 
-(2, 'Finance'),
-(3, 'Legal'),
-(4, 'Engineering');
+('Operations'), 
+('Finance'),
+('Legal'),
+('Engineering');
 
-INSERT INTO role (title, salary, department_id)
+INSERT INTO role
+(title, salary, department_id)
 VALUES
 ('Operations Lead', 650000, 1),
 ('Sales', 55000, 1), 
@@ -18,7 +20,8 @@ VALUES
 ('Lawyer', 150000, 4)
 ('Paralegal', 60000,4)
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id) 
+INSERT INTO employee
+(first_name, last_name, role_id, manager_id) 
 VALUES
 ('Barack', 'Obama', 1, 1),
 ('Scott', 'Obregon', 1, 2),
