@@ -1,7 +1,26 @@
+<<<<<<< HEAD
 require("console.table");
 // const mysql = require("mysql2");
 const { prompt } = require("inquirer");
 const db = require("./db");
+=======
+import cTable from "console.table";
+import mysql from "mysql";
+import inquirer from "inquirer";
+
+
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'password',
+    database: 'team'
+});
+
+//Err
+db.connect((err) => {
+    if (err) throw err;
+});
+>>>>>>> develop
 
 // List Questions Here
 function serveQuest() {
