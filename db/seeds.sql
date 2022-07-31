@@ -9,7 +9,7 @@ VALUES
 
 INSERT INTO role (title, salary, department_id)
 VALUES
-('Sales Lead', 650000, 1),
+('Operations Lead', 650000, 1),
 ('Sales', 55000, 1), 
 ('Lead Engineer', 150000, 2), 
 ('Electrical Engineer', 122000, 2), 

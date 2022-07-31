@@ -1,5 +1,5 @@
-// const cTable = require("console.table");
-const mysql = require("mysql2");
+require("console.table");
+// const mysql = require("mysql2");
 const inquirer = require("inquirer");
 const { prompt } = require("inquirer");
 const db = require("./db");
@@ -371,7 +371,7 @@ function deleteRole() {
                     choices: roleChoices
                 }
             ])
-                .then(res => db.removeRole(res.roleId))
+                .then(res => db.deleteRole(res.roleId))
                 .then(() => console.log("Deleted role from the database"))
                 .then(() => serveQuest())
         })
