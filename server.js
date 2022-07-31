@@ -58,7 +58,7 @@ function serveQuest() {
             } else if (answer.choice === "Delete Department") {
                 deleteDepartment();
             } else if (answer.choice === "View Budget By Department") {
-                viewDepartmentBudgets();
+                viewDepartmentBudget();
             } else if (answer.choice === "Quit") {
                 quit();
             }
@@ -66,7 +66,7 @@ function serveQuest() {
 };
 // View Employees
 function viewAllEmployees() {
-    db.findAllEmployees()
+    db.findEmployees()
         .then(([rows]) => {
             let employees = rows;
             console.log("\n");
@@ -83,16 +83,15 @@ function viewEmployeesByDepartment() {
                 name: name,
                 value: id
             }));
-
             prompt([
                 {
                     type: "list",
                     name: "departmentId",
-                    message: "Which department would you like to see employees for?",
+                    message: "What department would you like to view employees from?",
                     choices: departmentChoices
                 }
             ])
-                .then(res => db.findAllEmployeesByDepartment(res.departmentId))
+                .then(res => db.findEmployeesByDepartment(res.departmentId))
                 .then(([rows]) => {
                     let employees = rows;
                     console.log("\n");
@@ -103,7 +102,7 @@ function viewEmployeesByDepartment() {
 }
 // View Employees By Manager
 function viewEmployeesByManager() {
-    db.findAllEmployees()
+    db.findEmployees()
         .then(([rows]) => {
             let managers = rows;
             const managerChoices = managers.map(({ id, first_name, last_name }) => ({
@@ -115,16 +114,16 @@ function viewEmployeesByManager() {
                 {
                     type: "list",
                     name: "managerId",
-                    message: "Which employee do you want to see the Manger for?",
+                    message: "Which employee do you need to see the Manager for?",
                     choices: managerChoices
                 }
             ])
-                .then(res => db.findAllEmployeesByManager(res.managerId))
+                .then(res => db.findEmployeesByManager(res.managerId))
                 .then(([rows]) => {
                     let employees = rows;
                     console.log("\n");
                     if (employees.length === 0) {
-                        console.log("The selected employee has no direct Manager.");
+                        console.log("Your employee has no direct Manager.");
                     } else {
                         console.table(employees);
                     }
@@ -137,18 +136,18 @@ function addEmployee() {
     prompt([
         {
             name: "firstName",
-            message: "What is the employee's first name?"
+            message: "What is your employee's first name?"
         },
         {
             name: "lastName",
-            message: "What is the employee's last name?"
+            message: "What is your employee's last name?"
         }
     ])
         .then(res => {
             let firstName = res.first_name;
             let lastName = res.last_name;
 
-            db.findAllRoles()
+            db.findRoles()
                 .then(([rows]) => {
                     let roles = rows;
                     const roleChoices = roles.map(({ id, title }) => ({
@@ -159,13 +158,13 @@ function addEmployee() {
                     prompt({
                         type: "list",
                         name: "roleId",
-                        message: "What is the employee's role?",
+                        message: "What is your employee's role?",
                         choices: roleChoices
                     })
                         .then(res => {
                             let roleId = res.roleId;
 
-                            db.findAllEmployees()
+                            db.findEmployees()
                                 .then(([rows]) => {
                                     let employees = rows;
                                     const managerChoices = employees.map(({ id, first_name, last_name }) => ({
@@ -178,7 +177,7 @@ function addEmployee() {
                                     prompt({
                                         type: "list",
                                         name: "managerId",
-                                        message: "Who is the employee's manager?",
+                                        message: "Who is your employee's manager?",
                                         choices: managerChoices
                                     })
                                         .then(res => {
@@ -192,7 +191,7 @@ function addEmployee() {
                                             db.createEmployee(employee);
                                         })
                                         .then(() => console.log(
-                                            `Added ${firstName} ${lastName} to the database`
+                                            `You Added ${firstName} ${lastName} To The Database!`
                                         ))
                                         .then(() => serveQuest())
                                 })
@@ -202,7 +201,7 @@ function addEmployee() {
 }
 // Delete Employee
 function deleteEmployee() {
-    db.findAllEmployees()
+    db.findEmployees()
         .then(([rows]) => {
             let employees = rows;
             const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
@@ -219,13 +218,13 @@ function deleteEmployee() {
                 }
             ])
                 .then(res => db.deleteEmployee(deleteployeeId))
-                .then(() => console.log("Removed employee from the database"))
+                .then(() => console.log("Deleted employee from the database"))
                 .then(() => serveQuest())
         })
 }
 // Update Employee Role
 function updateRole() {
-    db.findAllEmployees()
+    db.findEmployees()
         .then(([rows]) => {
             let employees = rows;
             const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
@@ -237,13 +236,13 @@ function updateRole() {
                 {
                     type: "list",
                     name: "employeeId",
-                    message: "Which employee's role do you want to update?",
+                    message: "Whos role do you want to update?",
                     choices: employeeChoices
                 }
             ])
                 .then(res => {
                     let employeeId = res.employeeId;
-                    db.findAllRoles()
+                    db.findRoles()
                         .then(([rows]) => {
                             let roles = rows;
                             const roleChoices = roles.map(({ id, title }) => ({
@@ -266,10 +265,9 @@ function updateRole() {
                 });
         })
 }
-
 // Update Employee Manager
 function updateManager() {
-    db.findAllEmployees()
+    db.findEmployees()
         .then(([rows]) => {
             let employees = rows;
             const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
@@ -356,54 +354,65 @@ function addRole() {
 }
 // Delete Role
 function deleteRole() {
-    db.findAllRoles()
-      .then(([rows]) => {
-        let roles = rows;
-        const roleChoices = roles.map(({ id, title }) => ({
-          name: title,
-          value: id
-        }));
-  
-        prompt([
-          {
-            type: "list",
-            name: "roleId",
-            message:
-              "Which role do you want to remove? (Warning: This will also remove employees)",
-            choices: roleChoices
-          }
-        ])
-          .then(res => db.removeRole(res.roleId))
-          .then(() => console.log("Removed role from the database"))
-          .then(() => serveQuest())
-      })
-  }
+    db.findRoles()
+        .then(([rows]) => {
+            let roles = rows;
+            const roleChoices = roles.map(({ id, title }) => ({
+                name: title,
+                value: id
+            }));
+
+            prompt([
+                {
+                    type: "list",
+                    name: "roleId",
+                    message:
+                        "Which role do you want to delete? (Warning: This will also delete employees)",
+                    choices: roleChoices
+                }
+            ])
+                .then(res => db.removeRole(res.roleId))
+                .then(() => console.log("Deleted role from the database"))
+                .then(() => serveQuest())
+        })
+}
 // Delete Department
 function deleteDepartment() {
     db.findAllDepartments()
-      .then(([rows]) => {
-        let departments = rows;
-        const departmentChoices = departments.map(({ id, name }) => ({
-          name: name,
-          value: id
-        }));
-  
-        prompt({
-          type: "list",
-          name: "departmentId",
-          message:
-            "Which department would you like to remove? (Warning: This will also remove associated roles and employees)",
-          choices: departmentChoices
+        .then(([rows]) => {
+            let departments = rows;
+            const departmentChoices = departments.map(({ id, name }) => ({
+                name: name,
+                value: id
+            }));
+
+            prompt({
+                type: "list",
+                name: "departmentId",
+                message:
+                    "Which department would you like to delete? (Warning: This will also delete roles and employees)",
+                choices: departmentChoices
+            })
+                .then(res => db.deleteDepartment(res.departmentId))
+                .then(() => console.log(`Deleted department from the database.`))
+                .then(() => serveQuest())
         })
-          .then(res => db.deleteDepartment(res.departmentId))
-          .then(() => console.log(`Deleted department from the database`))
-          .then(() => serveQuest())
-      })
-  }
-// View Budget By Department
-
+}
+// View Department Budget
+function viewDepartmentBudget() {
+    db.viewDepartmentBudgets()
+        .then(([rows]) => {
+            let departments = rows;
+            console.log("\n");
+            console.table(departments);
+        })
+        .then(() => serveQuest());
+}
 // Quit
-
+function quit() {
+    console.log("See Ya!");
+    process.exit();
+  }
 
 serveQuest()
 
