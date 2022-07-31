@@ -1,5 +1,8 @@
 
   # Employee Tracker
+  ![helpScreen](https://user-images.githubusercontent.com/98435396/182017102-f62f113d-c344-429d-abbf-af613b1359cc.png)
+  
+  https://youtu.be/fyr0qxqEAO8
   
   ## Table of Contents
   - [Description](#description)
@@ -54,4 +57,6 @@ for more information about MIT License click [link](https://opensource.org/licen
   
   ### Links:
   You can find me on [GitHub](https://github.com/ObregonScott)
+  
+  https://youtu.be/fyr0qxqEAO8
   
