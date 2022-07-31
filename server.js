@@ -1,7 +1,7 @@
 // const cTable = require("console.table");
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
-const db = require("./db"); 
+const db = require("./db");
 const { removeEmployee, removeRole, removeDepartment, viewDepartmentBudgets } = require("./db");
 
 
@@ -87,150 +87,11 @@ const viewAllEmployees = () => {
 };
 
 // View Employees By Department
+
 // View Employees By Manager
+
 // Add Employee
-// Remove Employee
-// Update Employee Role
-// Update Employee Manager
-// View All Roles
-// Add Role
-// Remove Role
-// View All Departments
-// Add Department
-// Remove Department
-// View Budget By Department
-// Quit
 
-//view all Depts first
-const viewAllDepartments = () => {
-    const sql = `SELECT * FROM department`;
-
-    db.query(sql, (err, rows) => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        console.table(rows);
-        serveQuest();
-    });
-};
-
-//next view Roles
-const viewAllRoles = () => {
-    const sql = `SELECT role.*, department.name AS department_name FROM role LEFT JOIN department ON role.department_id = department.id`;
-    db.query(sql, (err, rows) => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        console.table(rows);
-        serveQuest();
-    });
-};
-
-
-//next add Department
-// const addDepartment = () => {
-function addDepartment() {
-    inquirer
-        .prompt([
-            {
-                type: "input",
-                name: "department_name",
-                message: "Enter name of new department(Required)",
-                validate: (departmentNameInput) => {
-                    if (departmentNameInput) {
-                        return true;
-                    } else {
-                        console.log("Enter name of new department");
-                        return false;
-                    }
-                },
-            },
-        ])
-        .then((answers) => {
-            const sql = `INSERT INTO department (name) VALUE (?)`;
-            const params = [answers.department_name];
-
-            db.query(sql, params, (err, result) => {
-                if (err) {
-                    console.log(err);
-                    return;
-                }
-                console.table(result);
-                console.log("New department has been addded!!!");
-                serveQuest();
-            });
-        });
-};
-
-//next add Role
-// const addRole = () => {
-function addRole() {
-    inquirer
-        .prompt([
-            {
-                type: "input",
-                name: "new_role",
-                message: "Enter new role name (Required)",
-                validate: (roleNameInput) => {
-                    if (roleNameInput) {
-                        return true;
-                    } else {
-                        console.log("Enter new role name");
-                        return false;
-                    }
-                },
-            },
-            {
-                type: "number",
-                name: "new_role_salary",
-                message: "Enter new role salary (Required)",
-                validate: (roleSalaryInput) => {
-                    if (roleSalaryInput) {
-                        return true;
-                    } else {
-                        console.log("Enter new role salary");
-                        return false;
-                    }
-                },
-            },
-            {
-                type: "number",
-                name: "new_role_department",
-                message: "Enter new role department id (Required)",
-                validate: (roleDepartmentInput) => {
-                    if (roleDepartmentInput) {
-                        return true;
-                    } else {
-                        console.log("Enter new role department id");
-                        return false;
-                    }
-                },
-            },
-        ])
-        .then((answers) => {
-            const sql = `INSERT INTO role (title, salary, department_id) VALUE (?,?,?)`;
-            const params = [
-                answers.new_role,
-                answers.new_role_salary,
-                answers.new_role_department,
-            ];
-
-            db.query(sql, params, (err, result) => {
-                if (err) {
-                    console.log(err);
-                    return;
-                }
-                console.table(result);
-                console.log("A New Role Has Been Addded!!!");
-                serveQuest();
-            });
-        });
-};
-
-//next add Employee
-// const addEmployee = () => {
 function addEmployee() {
     inquirer
         .prompt([
@@ -310,8 +171,10 @@ function addEmployee() {
         });
 };
 
-//next Update Role
-// const updateRole = () => {
+// Remove Employee
+
+// Update Employee Role
+
 function updateRole() {
     inquirer
         .prompt([
@@ -359,5 +222,167 @@ function updateRole() {
             });
         });
 };
+
+// Update Employee Manager
+
+// View All Roles
+
+const viewAllRoles = () => {
+    const sql = `SELECT role.*, department.name AS department_name FROM role LEFT JOIN department ON role.department_id = department.id`;
+    db.query(sql, (err, rows) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        console.table(rows);
+        serveQuest();
+    });
+};
+
+
+// Add Role
+
+function addRole() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                name: "new_role",
+                message: "Enter new role name (Required)",
+                validate: (roleNameInput) => {
+                    if (roleNameInput) {
+                        return true;
+                    } else {
+                        console.log("Enter new role name");
+                        return false;
+                    }
+                },
+            },
+            {
+                type: "number",
+                name: "new_role_salary",
+                message: "Enter new role salary (Required)",
+                validate: (roleSalaryInput) => {
+                    if (roleSalaryInput) {
+                        return true;
+                    } else {
+                        console.log("Enter new role salary");
+                        return false;
+                    }
+                },
+            },
+            {
+                type: "number",
+                name: "new_role_department",
+                message: "Enter new role department id (Required)",
+                validate: (roleDepartmentInput) => {
+                    if (roleDepartmentInput) {
+                        return true;
+                    } else {
+                        console.log("Enter new role department id");
+                        return false;
+                    }
+                },
+            },
+        ])
+        .then((answers) => {
+            const sql = `INSERT INTO role (title, salary, department_id) VALUE (?,?,?)`;
+            const params = [
+                answers.new_role,
+                answers.new_role_salary,
+                answers.new_role_department,
+            ];
+
+            db.query(sql, params, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                console.table(result);
+                console.log("A New Role Has Been Addded!!!");
+                serveQuest();
+            });
+        });
+};
+
+// Remove Role
+
+// View All Departments
+
+const viewAllDepartments = () => {
+    const sql = `SELECT * FROM department`;
+
+    db.query(sql, (err, rows) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        console.table(rows);
+        serveQuest();
+    });
+};
+
+// Add Department
+
+function addDepartment() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                name: "department_name",
+                message: "Enter name of new department(Required)",
+                validate: (departmentNameInput) => {
+                    if (departmentNameInput) {
+                        return true;
+                    } else {
+                        console.log("Enter name of new department");
+                        return false;
+                    }
+                },
+            },
+        ])
+        .then((answers) => {
+            const sql = `INSERT INTO department (name) VALUE (?)`;
+            const params = [answers.department_name];
+
+            db.query(sql, params, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                console.table(result);
+                console.log("New department has been addded!!!");
+                serveQuest();
+            });
+        });
+};
+
+// Remove Department
+
+// View Budget By Department
+
+// Quit
+
+//view all Depts first
+
+
+//next view Roles
+
+
+//next add Department
+// const addDepartment = () => {
+
+
+//next add Role
+// const addRole = () => {
+
+
+//next add Employee
+// const addEmployee = () => {
+
+
+//next Update Role
+// const updateRole = () => {
+
 
 serveQuest();
