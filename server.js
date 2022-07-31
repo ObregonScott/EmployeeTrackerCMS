@@ -213,12 +213,12 @@ function deleteEmployee() {
                 {
                     type: "list",
                     name: "employeeId",
-                    message: "Which employee do you want to remove?",
+                    message: "Which employee do you want to delete?",
                     choices: employeeChoices
                 }
             ])
                 .then(res => db.deleteEmployee(deleteployeeId))
-                .then(() => console.log("Deleted employee from the database"))
+                .then(() => console.log("You Deleted Employee Info From The Database!"))
                 .then(() => serveQuest())
         })
 }
@@ -236,7 +236,7 @@ function updateRole() {
                 {
                     type: "list",
                     name: "employeeId",
-                    message: "Whos role do you want to update?",
+                    message: "Whos role do you need to update?",
                     choices: employeeChoices
                 }
             ])
@@ -254,12 +254,12 @@ function updateRole() {
                                 {
                                     type: "list",
                                     name: "roleId",
-                                    message: "Which role do you want to assign the selected employee?",
+                                    message: "What role do you need to assign the selected employee?",
                                     choices: roleChoices
                                 }
                             ])
                                 .then(res => db.updateEmployeeRole(employeeId, res.roleId))
-                                .then(() => console.log("Updated employee's role"))
+                                .then(() => console.log("You Updated Your Employee's Role!"))
                                 .then(() => serveQuest())
                         });
                 });
@@ -298,12 +298,12 @@ function updateManager() {
                                     type: "list",
                                     name: "managerId",
                                     message:
-                                        "Which employee do you want to set as manager for the selected employee?",
+                                        "Which employee do you need to set as manager for the selected lacky?",
                                     choices: managerChoices
                                 }
                             ])
                                 .then(res => db.updateEmployeeManager(employeeId, res.managerId))
-                                .then(() => console.log("Updated employee's manager"))
+                                .then(() => console.log("You Updated Employee's Manager!"))
                                 .then(() => serveQuest())
                         })
                 })
