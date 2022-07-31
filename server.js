@@ -1,22 +1,10 @@
 const cTable = require("console.table");
 const mysql = require("mysql");
 const inquirer = require("inquirer");
-// const db = require("./db"); 
+const db = require("./db"); 
 
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    // Your MySQL username,
-    user: 'root',
-    // Your My SQL password: '',
-    password: 'password',
-    database: 'team'
-});
 
-//Err
-db.connect((err) => {
-    if (err) throw err;
-});
 
 // List Questions Here
 // const serveQuest = () => {
